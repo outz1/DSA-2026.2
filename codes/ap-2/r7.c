@@ -1,4 +1,10 @@
- #include <stdio.h>
+/* TIPO DE RECURSÃO -> LINEAR
+    A complexidade do tempo é O(C(n, k)), onde C(n, k) é o coeficiente binomial, pois estamos gerando todas as combinações possíveis de k elementos escolhidos de um conjunto de n elementos. A complexidade do espaço é O(k), pois a profundidade máxima da recursão é k.
+
+    Comp. Tempo = O(C(n, k))
+    Comp. Espaço = O(k)
+*/
+#include <stdio.h>
 
 int N;
 int K;
@@ -21,7 +27,7 @@ void imprimirCombinacao(void)
 
 void gerarCombinacoes(int inicio, int posicao)
 {
-	if (posicao == K)
+	if (posicao == K) // ponto de parada
 	{
 		imprimirCombinacao();
 		return;

@@ -1,10 +1,22 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-int encontrarSaida(char **labirinto, int N, int linha, int coluna)
+int N;
+int labirinto[100][100];
+int visitado[100][100];
+
+int encontrarSaida(int linha, int coluna)
 {
-    if (linha < 0 || linha >= N || coluna < 0 || coluna >= N ||
-        labirinto[linha][coluna] == '0')
+    if (linha < 0 || linha >= N || coluna < 0 || coluna >= N)
+    {
+    return 0;
+    }
+
+    if (labirinto[linha][coluna] == 0)
+    {
+        return 0;
+    }
+
+    if (visitado[linha][coluna])
     {
         return 0;
     }
@@ -14,34 +26,33 @@ int encontrarSaida(char **labirinto, int N, int linha, int coluna)
         return 1;
     }
 
-    labirinto[linha][coluna] = '0';
+    visitado[linha][coluna] = 1;
 
-    return encontrarSaida(labirinto, N, linha - 1, coluna) ||
-          encontrarSaida(labirinto, N, linha + 1, coluna) ||
-          encontrarSaida(labirinto, N, linha, coluna - 1) ||
-          encontrarSaida(labirinto, N, linha, coluna + 1);
+    if (encontrarSaida(linha - 1, coluna) ||
+        encontrarSaida(linha + 1, coluna) ||
+        encontrarSaida(linha, coluna - 1) ||
+        encontrarSaida(linha, coluna + 1)  
+        )
+    {
+        return 1;
+    }
+
+    return 0;
 }
 
 int main(void)
 {
-    int N;
     scanf("%d", &N);
 
-    char **labirinto = malloc(N * sizeof(char *));
-
     for (int i = 0; i < N; i++)
     {
-        labirinto[i] = malloc((N + 1) * sizeof(char));
-        scanf("%s", labirinto[i]);
+        for (int j = 0; j < N; j++)
+        {
+            scanf("%1d", &labirinto[i][j]);
+        }
     }
 
-    printf("%d\n", encontrarSaida(labirinto, N, 0, 0));
-
-    for (int i = 0; i < N; i++)
-    {
-        free(labirinto[i]);
-    }
-    free(labirinto);
+    printf("%d\n", encontrarSaida(0, 0));
 
     return 0;
 }

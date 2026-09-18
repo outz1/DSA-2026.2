@@ -31,6 +31,8 @@ void gerarPermutacoes(int posicao)
         return;
     }
 
+
+    //!!! A recursão permite avançar; o backtracking permite voltar e reutilizar escolhas em outros caminhos.
     for(int numero = 1; numero <= quantidadeDeNumeros; numero++)
     {
         if(numeroJaUsado[numero]) // poda da arvore
